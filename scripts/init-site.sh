@@ -48,13 +48,27 @@ npx --yes create-next-app@latest "$PROJECT_NAME" \
 
 cd "$PROJECT_DIR"
 
+log_step "Setting up design system (shadcn/ui, tokens, fonts)"
+"$SCRIPT_DIR/postinstall/setup-design.sh" "$PROJECT_DIR"
+
 log_step "Copying landing page and admin dashboard shell"
 rm -f "$PROJECT_DIR/app/page.tsx"
 mkdir -p "$PROJECT_DIR/app/(marketing)" "$PROJECT_DIR/app/(admin)/dashboard" "$PROJECT_DIR/app/api/health"
-copy_template "app/(marketing)/layout.tsx" "$PROJECT_DIR/app/(marketing)/layout.tsx"
 copy_template "app/(marketing)/page.tsx" "$PROJECT_DIR/app/(marketing)/page.tsx"
 copy_template "app/(admin)/dashboard/page.tsx" "$PROJECT_DIR/app/(admin)/dashboard/page.tsx"
 copy_template "app/api/health/route.ts" "$PROJECT_DIR/app/api/health/route.ts"
+
+log_step "Copying shared marketing and admin components"
+copy_template "components/marketing" "$PROJECT_DIR/components/marketing"
+mkdir -p "$PROJECT_DIR/components/admin"
+for f in "$TEMPLATES_DIR"/components/admin/*.tsx; do
+  name="$(basename "$f")"
+  # user-menu-authjs.tsx is Auth.js-specific and copied by setup-auth.sh
+  # instead, so a Clerk project (which never installs next-auth) doesn't
+  # end up with a file that fails to typecheck.
+  [ "$name" = "user-menu-authjs.tsx" ] && continue
+  cp "$f" "$PROJECT_DIR/components/admin/$name"
+done
 
 log_step "Setting up Prisma + Postgres"
 # Pinned to the Prisma 6 line: Prisma 7 removed datasource url/directUrl from

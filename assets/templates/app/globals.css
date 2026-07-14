@@ -1,0 +1,127 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+ * Design tokens for this project — see references/design.md for the full
+ * rationale. Two files control the whole visual identity: this one (color)
+ * and the three next/font calls in app/layout.tsx (type). Edit here to
+ * reskin for a real brand; shadcn/ui components read these variables, so
+ * changing them re-themes every component at once.
+ */
+:root {
+  --radius: 0.5rem;
+
+  --background: #f7f7f5; /* paper-white */
+  --foreground: #1b2333; /* ink navy */
+
+  --card: #ffffff;
+  --card-foreground: #1b2333;
+  --popover: #ffffff;
+  --popover-foreground: #1b2333;
+
+  --primary: #1b2333;
+  --primary-foreground: #f7f7f5;
+  --secondary: #ece9e2;
+  --secondary-foreground: #1b2333;
+
+  --muted: #ece9e2;
+  --muted-foreground: #5b6472; /* slate */
+  --accent: #ece9e2;
+  --accent-foreground: #1b2333;
+
+  --destructive: #b3261e;
+  --destructive-foreground: #f7f7f5;
+
+  --border: #e4e1da; /* hairline */
+  --input: #e4e1da;
+  --ring: #c08a2e; /* gold-amber, used for focus rings */
+
+  /* The signature accent — used deliberately and sparingly (primary CTAs,
+     the "most popular" pricing highlight, the final CTA band), never as a
+     pervasive hover/highlight color. Keep it rare so it still reads as a
+     signal when it appears. */
+  --gold: #c08a2e;
+  --gold-foreground: #1b2333;
+}
+
+.dark {
+  --background: #1b2333;
+  --foreground: #f7f7f5;
+
+  --card: #232c40;
+  --card-foreground: #f7f7f5;
+  --popover: #232c40;
+  --popover-foreground: #f7f7f5;
+
+  --primary: #f7f7f5;
+  --primary-foreground: #1b2333;
+  --secondary: #2a3346;
+  --secondary-foreground: #f7f7f5;
+
+  --muted: #2a3346;
+  --muted-foreground: #9aa3b2;
+  --accent: #2a3346;
+  --accent-foreground: #f7f7f5;
+
+  --destructive: #e5484d;
+  --destructive-foreground: #1b2333;
+
+  --border: #2e3850;
+  --input: #2e3850;
+  --ring: #c08a2e;
+
+  --gold: #c08a2e;
+  --gold-foreground: #1b2333;
+}
+
+@theme inline {
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-gold: var(--gold);
+  --color-gold-foreground: var(--gold-foreground);
+
+  --font-display: var(--font-slab);
+  --font-sans: var(--font-body);
+  --font-mono: var(--font-ledger);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+/* Every number in the product — stats, prices, table figures — renders
+   through the NumericText component, which applies these two classes.
+   Tabular figures keep columns of numbers aligned, which is the point:
+   this is a structured-data product, not decoration. */
+.tabular-figures {
+  font-variant-numeric: tabular-nums;
+}

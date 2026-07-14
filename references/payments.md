@@ -5,9 +5,12 @@ Added by `scripts/postinstall/setup-payments.sh`, called automatically from
 
 ## Flow
 
-1. `app/(marketing)/pricing/page.tsx` — client page listing plans (replace
-   the placeholder `price_replace_me` IDs with real Stripe Price IDs from
-   your dashboard's product catalog).
+1. `app/(marketing)/pricing/page.tsx` — a real 3-tier pricing layout (Solo /
+   Team / Business, with Team highlighted as "Most popular") sourced from
+   `lib/pricing-data.ts` — replace the placeholder `price_..._replace_me`
+   IDs there with real Stripe Price IDs from your dashboard's product
+   catalog. See `references/design.md` for the layout rationale (3-tier
+   with a highlighted middle plan is the pattern that tests best).
 2. `POST /api/checkout` (`route.clerk.ts` or `route.authjs.ts`, whichever
    matches the installed auth provider) — creates (or reuses) a Stripe
    Customer and a local `Subscription` row, then creates a Stripe Checkout

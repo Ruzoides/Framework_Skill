@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function ResetPasswordForm() {
   const router = useRouter();
@@ -30,20 +33,17 @@ export default function ResetPasswordForm() {
 
   return (
     <div className="mx-auto max-w-sm px-6 py-24">
-      <h1 className="text-2xl font-semibold">Choose a new password</h1>
+      <h1 className="font-display text-2xl font-semibold">Choose a new password</h1>
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
-        <input
-          name="password"
-          type="password"
-          placeholder="New password (min 8 characters)"
-          required
-          minLength={8}
-          className="w-full rounded-md border px-3 py-2"
-        />
-        {error && <p className="text-sm text-red-600">{error}</p>}
-        <button type="submit" className="w-full rounded-md bg-black px-4 py-2 text-white">
+        <div className="space-y-2">
+          <Label htmlFor="password">New password</Label>
+          <Input id="password" name="password" type="password" required minLength={8} />
+          <p className="text-xs text-muted-foreground">Minimum 8 characters.</p>
+        </div>
+        {error && <p className="text-sm text-destructive">{error}</p>}
+        <Button type="submit" className="w-full">
           Reset password
-        </button>
+        </Button>
       </form>
     </div>
   );

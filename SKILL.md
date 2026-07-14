@@ -109,6 +109,7 @@ Load the matching reference doc first — these cover the *why*, not just the
 *what*, and call out the common ways each area gets broken:
 
 - `references/architecture.md` — overall layout and conventions
+- `references/design.md` — color/type tokens, shadcn/ui setup, reskinning
 - `references/database.md` — Prisma/Postgres conventions, migrations, pooling
 - `references/auth.md` — Clerk and Auth.js setup, route protection
 - `references/payments.md` — Stripe checkout/subscriptions/webhooks

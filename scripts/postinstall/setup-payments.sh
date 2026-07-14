@@ -31,8 +31,10 @@ if [ ! -f "$PROJECT_DIR/lib/rate-limit.ts" ]; then
 fi
 
 copy_template "lib/stripe.ts" "$PROJECT_DIR/lib/stripe.ts"
+copy_template "lib/pricing-data.ts" "$PROJECT_DIR/lib/pricing-data.ts"
 copy_template "app/api/checkout/route.$AUTH_PROVIDER.ts" "$PROJECT_DIR/app/api/checkout/route.ts"
 copy_template "app/api/webhooks/stripe/route.ts" "$PROJECT_DIR/app/api/webhooks/stripe/route.ts"
+mkdir -p "$PROJECT_DIR/app/(marketing)/pricing"
 copy_template "app/(marketing)/pricing/page.tsx" "$PROJECT_DIR/app/(marketing)/pricing/page.tsx"
 
 if [ -f "$PROJECT_DIR/prisma/schema.prisma" ] && ! file_contains "$PROJECT_DIR/prisma/schema.prisma" "model Subscription"; then

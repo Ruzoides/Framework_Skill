@@ -9,16 +9,22 @@ public site from the authenticated area without affecting the URL path:
 app/
 ├── (marketing)/          # public landing page — no auth required
 │   ├── layout.tsx
-│   ├── page.tsx
+│   ├── page.tsx           # composed from components/marketing/* sections
 │   └── pricing/page.tsx  # only if payments enabled
 ├── (admin)/               # protected dashboard — auth required
-│   ├── layout.tsx         # server-side auth check happens here
-│   ├── page.tsx
+│   ├── layout.tsx         # server-side auth check + components/admin/admin-shell
+│   ├── dashboard/page.tsx
 │   └── settings/page.tsx
 ├── api/
 │   ├── health/route.ts    # unauthenticated liveness check
 │   └── webhooks/stripe/route.ts   # only if payments enabled
 └── middleware.ts          # route protection + security headers
+
+components/
+├── ui/          # vendored shadcn/ui primitives — see references/design.md
+├── marketing/   # landing page sections (hero, pricing-teaser, faq, ...)
+├── admin/       # admin shell, nav, stat cards, tables
+└── numeric-text.tsx  # shared monospace/tabular-nums number wrapper
 ```
 
 Route groups (`(name)`) don't appear in the URL — `(admin)/page.tsx` serves

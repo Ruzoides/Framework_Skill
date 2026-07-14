@@ -11,7 +11,10 @@ import { authRateLimit } from "@/lib/rate-limit";
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
   session: { strategy: "jwt" },
-  pages: { signIn: "/api/auth/signin" },
+  // No `pages.signIn` override — that option is for pointing Auth.js at a
+  // *custom* sign-in page. Setting it to the built-in route's own path
+  // makes Auth.js treat the default page as a custom redirect target and
+  // loop redirecting to itself. Omitting it keeps the built-in page.
   providers: [
     Credentials({
       credentials: {

@@ -53,7 +53,21 @@ specific to this scaffold.
 **Pitfall**: forgetting the `middleware.ts` `matcher` config means some
 routes never pass through the auth check at all — always confirm a route is
 actually covered by the matcher, don't assume "it's under `(admin)/`" is
-sufficient by itself.
+sufficient by itself. The matcher deliberately excludes `/api/auth/*` —
+running the `auth()` middleware wrapper over Auth.js's own routes causes the
+built-in sign-in page to redirect to itself in a loop.
+
+**Pitfall**: don't set `pages.signIn` in `auth.ts` to Auth.js's own default
+route (`/api/auth/signin`). That option is for pointing at a *custom*
+sign-in page; pointing it at the built-in route's own path makes Auth.js
+treat it as a custom redirect target and loop. Omit `pages.signIn` entirely
+to keep the built-in page, or set it to a real custom page you've built.
+
+**Pitfall**: running `next start` (production mode) locally, or self-hosting
+outside Vercel, can fail with `UntrustedHost` — Auth.js only trusts the
+request host automatically in development or when deployed on Vercel
+(which sets its own `VERCEL` env var). Self-hosting elsewhere needs
+`AUTH_TRUST_HOST=true` or `AUTH_URL` set to your real domain.
 
 ## Common pitfalls (either provider)
 

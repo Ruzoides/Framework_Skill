@@ -2,6 +2,9 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -32,32 +35,25 @@ export default function SignUpPage() {
 
   return (
     <div className="mx-auto max-w-sm px-6 py-24">
-      <h1 className="text-2xl font-semibold">Create an account</h1>
+      <h1 className="font-display text-2xl font-semibold">Create an account</h1>
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
-        <input name="name" placeholder="Name" className="w-full rounded-md border px-3 py-2" />
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          required
-          className="w-full rounded-md border px-3 py-2"
-        />
-        <input
-          name="password"
-          type="password"
-          placeholder="Password (min 8 characters)"
-          required
-          minLength={8}
-          className="w-full rounded-md border px-3 py-2"
-        />
-        {error && <p className="text-sm text-red-600">{error}</p>}
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full rounded-md bg-black px-4 py-2 text-white disabled:opacity-50"
-        >
+        <div className="space-y-2">
+          <Label htmlFor="name">Name</Label>
+          <Input id="name" name="name" placeholder="Ada Lovelace" />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="email">Email</Label>
+          <Input id="email" name="email" type="email" required />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="password">Password</Label>
+          <Input id="password" name="password" type="password" required minLength={8} />
+          <p className="text-xs text-muted-foreground">Minimum 8 characters.</p>
+        </div>
+        {error && <p className="text-sm text-destructive">{error}</p>}
+        <Button type="submit" disabled={loading} className="w-full">
           {loading ? "Creating account..." : "Sign up"}
-        </button>
+        </Button>
       </form>
     </div>
   );

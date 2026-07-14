@@ -17,5 +17,8 @@ export default auth((req) => {
 });
 
 export const config = {
-  matcher: ["/((?!_next|.*\\..*).*)", "/(api|trpc)(.*)"],
+  // Excludes /api/auth/* deliberately — running this middleware's auth()
+  // wrapper over Auth.js's own routes causes a redirect loop on the sign-in
+  // page itself.
+  matcher: ["/((?!api/auth|_next|.*\\..*).*)", "/(trpc)(.*)"],
 };

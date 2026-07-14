@@ -1,5 +1,20 @@
 import type { ReactNode } from "react";
+import { Roboto_Slab, Public_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+
+// Three type roles, self-hosted at build time by next/font (no runtime
+// dependency on Google's font CDN): a confident slab display face for
+// headlines, a clean sans for body copy, and a monospace face used
+// deliberately for every number (see components/numeric-text.tsx). See
+// references/design.md for the reasoning and how to swap these for a real
+// brand's typefaces.
+const slab = Roboto_Slab({
+  subsets: ["latin"],
+  variable: "--font-slab",
+  weight: ["600", "700"],
+});
+const body = Public_Sans({ subsets: ["latin"], variable: "--font-body" });
+const ledger = JetBrains_Mono({ subsets: ["latin"], variable: "--font-ledger" });
 
 export const metadata = {
   title: "Your Site",
@@ -8,7 +23,10 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${slab.variable} ${body.variable} ${ledger.variable}`}
+    >
       <body>{children}</body>
     </html>
   );

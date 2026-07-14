@@ -1,6 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 export default function ForgotPasswordPage() {
   const [sent, setSent] = useState(false);
@@ -27,18 +30,15 @@ export default function ForgotPasswordPage() {
 
   return (
     <div className="mx-auto max-w-sm px-6 py-24">
-      <h1 className="text-2xl font-semibold">Forgot password</h1>
+      <h1 className="font-display text-2xl font-semibold">Forgot password</h1>
       <form onSubmit={onSubmit} className="mt-6 space-y-4">
-        <input
-          name="email"
-          type="email"
-          placeholder="Email"
-          required
-          className="w-full rounded-md border px-3 py-2"
-        />
-        <button type="submit" className="w-full rounded-md bg-black px-4 py-2 text-white">
+        <div className="space-y-2">
+          <Label htmlFor="email">Email</Label>
+          <Input id="email" name="email" type="email" required />
+        </div>
+        <Button type="submit" className="w-full">
           Send reset link
-        </button>
+        </Button>
       </form>
     </div>
   );
