@@ -1,0 +1,12 @@
+// Mirrors the subset of Clerk user data the app needs for foreign keys and
+// queries. Clerk remains the source of truth; keep this table in sync via a
+// Clerk webhook (user.created / user.updated / user.deleted).
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // framework-skill:user-relations
+}
